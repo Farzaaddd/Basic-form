@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import validate from "./validate";
+import notify from "./toast";
+import styles from "./SignUp.module.css";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import notify from "./toast";
 
 const SignUp = () => {
   const [data, setData] = useState({
@@ -39,7 +40,7 @@ const SignUp = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     if (!Object.keys(errors).length) {
-      notify("you signed successfully", "success");
+      notify("you signed up successfully", "success");
     } else {
       notify("invalid data", "error");
       setTouched({
@@ -53,10 +54,10 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <h3> Sign up </h3>
-      <form onSubmit={submitHandler}>
-        <div>
+    <div className={styles.container}>
+      <form onSubmit={submitHandler} className={styles.formContainer}>
+        <h2 className={styles.header}> Sign up </h2>
+        <div className={styles.formField}>
           <label> name </label>
           <input
             type="text"
@@ -64,11 +65,16 @@ const SignUp = () => {
             value={data.name}
             onChange={changeHandler}
             onFocus={focusHandler}
+            className={
+              errors.name && touched.name
+                ? styles.uncompleted
+                : styles.formInput
+            }
           />
           {errors.name && touched.name && <span> {errors.name} </span>}
         </div>
 
-        <div>
+        <div className={styles.formField}>
           <label> Email </label>
           <input
             type="email"
@@ -76,11 +82,16 @@ const SignUp = () => {
             value={data.email}
             onChange={changeHandler}
             onFocus={focusHandler}
+            className={
+              errors.email && touched.email
+                ? styles.uncompleted
+                : styles.formInput
+            }
           />
           {errors.email && touched.email && <span> {errors.email} </span>}
         </div>
 
-        <div>
+        <div className={styles.formField}>
           <label> Password </label>
           <input
             type="password"
@@ -88,13 +99,18 @@ const SignUp = () => {
             value={data.password}
             onChange={changeHandler}
             onFocus={focusHandler}
+            className={
+              errors.password && touched.password
+                ? styles.uncompleted
+                : styles.formInput
+            }
           />
           {errors.password && touched.password && (
             <span> {errors.password} </span>
           )}
         </div>
 
-        <div>
+        <div className={styles.formField}>
           <label> Confirm Password </label>
           <input
             type="password"
@@ -102,30 +118,36 @@ const SignUp = () => {
             value={data.confirmPassword}
             onChange={changeHandler}
             onFocus={focusHandler}
+            className={
+              errors.confirmPassword && touched.confirmPassword
+                ? styles.uncompleted
+                : styles.formInput
+            }
           />
           {errors.confirmPassword && touched.confirmPassword && (
             <span> {errors.confirmPassword} </span>
           )}
         </div>
 
-        <div>
-          <label> I accept terms of privacy policy </label>
-          <input
-            type="checkbox"
-            name="isAccepted"
-            value={data.isAccepted}
-            onChange={changeHandler}
-            onFocus={focusHandler}
-          />
+        <div className={styles.formField}>
+          <div className={styles.checkBoxContainer}>
+            <label> I accept terms of privacy policy </label>
+            <input
+              type="checkbox"
+              name="isAccepted"
+              value={data.isAccepted}
+              onChange={changeHandler}
+              onFocus={focusHandler}
+            />
+          </div>
           {errors.isAccepted && touched.isAccepted && (
             <span> {errors.isAccepted} </span>
           )}
         </div>
 
-        <div>
-          <a href="#">
-            <button type="submit">Login</button>
-          </a>
+        <div className={styles.formButtons}>
+          <a href="#"> Login </a>
+          <button type="submit">Sign up</button>
         </div>
         <ToastContainer />
       </form>
