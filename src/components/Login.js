@@ -6,6 +6,8 @@ import styles from "./SignUp.module.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { Link } from "react-router-dom";
+
 const Login = () => {
   const [data, setData] = useState({
     email: "",
@@ -85,7 +87,7 @@ const Login = () => {
         </div>
 
         <div className={styles.formButtons}>
-          <a href="#"> Sign Up </a>
+          <Link to="/signup"> Sign Up </Link>
           <button type="submit">Login</button>
         </div>
         <ToastContainer />
