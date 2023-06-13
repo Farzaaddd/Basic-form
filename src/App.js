@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
@@ -8,12 +8,14 @@ import Login from "./components/Login";
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={Login} />
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
 
-        <Redirect from="/" to="/signup" />
-      </Switch>
+        <Route path="/" element={<Navigate to="/signup" />} />
+
+        {/* <Redirect from="/" to="/signup" /> */}
+      </Routes>
     </div>
   );
 }
